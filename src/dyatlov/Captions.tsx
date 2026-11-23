@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentFrame, useVideoConfig, staticFile, delayRender, continueRender } from "remotion";
 
-// Subtitles: Titan One (Latin/digits) + Rubik Black fallback for Cyrillic (Titan One has no Cyrillic glyphs).
+// Subtitles: Titan One (Latin/digits) + Nunito Black fallback for Cyrillic (Titan One has no Cyrillic glyphs).
 // Colour strictly white. 58 px (was 72) so cards are smaller than before. 1-2 words per card, pop-in on the word frame.
 export type Word = [number, number, string];
 const SHORT = new Set(["в", "и", "а", "но", "на", "не", "из", "от", "по", "за", "что", "как", "он", "я", "ни", "их", "то", "под", "это", "уже", "ты", "к", "до", "с", "у", "о", "все", "они", "так"]);
@@ -28,10 +28,10 @@ const ensureFonts = () => {
   if (loaded) return; loaded = true;
   const h = delayRender("fonts");
   const t = new FontFace("TitanOne", `url(${staticFile("fonts/TitanOne.ttf")})`);
-  const r = new FontFace("RubikBlack", `url(${staticFile("fonts/Rubik.ttf")})`, { weight: "100 900" });
+  const r = new FontFace("NunitoBlack", `url(${staticFile("fonts/Nunito.ttf")})`, { weight: "100 900" });
   Promise.all([t.load(), r.load()]).then(([a, b]) => { (document as any).fonts.add(a); (document as any).fonts.add(b); continueRender(h); }).catch(() => continueRender(h));
 };
-export const FONT = "TitanOne, RubikBlack, 'Arial Black', sans-serif";
+export const FONT = "TitanOne, NunitoBlack, 'Arial Black', sans-serif";
 export const Captions: React.FC<{ cards: { t0: number; t1: number; text: string }[] }> = ({ cards }) => {
   ensureFonts();
   const frame = useCurrentFrame();
