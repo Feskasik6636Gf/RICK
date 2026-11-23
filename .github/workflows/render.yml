@@ -24,7 +24,7 @@ jobs:
       - name: Render frames ${{ matrix.range }}
         run: |
           mkdir -p out
-          npx remotion render src/index.ts Film "out/chunk_${{ matrix.range }}.mp4" --frames=${{ matrix.range }} --gl=angle --concurrency=4 --crf=16 --pixel-format=yuv420p --muted --log=warn
+          npx remotion render src/index.ts Film "out/chunk_${{ matrix.range }}.mp4" --frames=${{ matrix.range }} --gl=swangle --concurrency=4 --crf=16 --pixel-format=yuv420p --muted --log=warn
       - uses: actions/upload-artifact@v4
         with:
           name: chunk-${{ matrix.range }}
