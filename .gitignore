@@ -1,0 +1,5 @@
+node_modules
+.tmp
+out
+*.log
+public/audio/mix.wav
