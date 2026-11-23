@@ -3,7 +3,7 @@ name: Render video
 on:
   workflow_dispatch:
   push:
-    branches: [claude/dynamic-video-editing-subtitles-b25z0s]
+    branches: [claude/new-session-hmfcy1]
     paths: ["src/**", "public/**", "scripts/**", "package.json", ".github/workflows/render.yml"]
 
 jobs:

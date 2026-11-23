@@ -14,7 +14,7 @@ const fbm = (x: number, z: number) => vnoise(x * 0.05, z * 0.05) * 1 + vnoise(x 
 // terrain: tent slope at origin, valley falls towards +z where the forest is, big mountains behind (-z) and on the left (-x)
 export const terrainH = (x: number, z: number) => {
   const slope = -0.2 * z;
-  const bowl = Math.max(0, -z - 60) * 0.35 + Math.max(0, -x - 60) * 0.4;
+  const bowl = Math.max(0, -z - 90) * 0.12 + Math.max(0, -x - 90) * 0.14;
   const flat = smooth(1 - Math.hypot(x, z - 4) / 14);
   const n = (fbm(x + 40, z + 17) - 0.8) * 5;
   return lerp(slope + bowl + n, -0.2 * 4 + 0.15, flat * 0.9);
@@ -22,11 +22,11 @@ export const terrainH = (x: number, z: number) => {
 
 export type Mood = { sky: string; skyTop: string; fog: string; sun: string; sunI: number; amb: string; ambI: number; snow: string; stars: number };
 export const MOODS: Record<string, Mood> = {
-  day: { sky: "#bfe0f7", skyTop: "#3f92dc", fog: "#cfe6f6", sun: "#fff1d6", sunI: 2.2, amb: "#a8c8f0", ambI: 1.15, snow: "#e6eefa", stars: 0 },
-  dusk: { sky: "#f0b8a0", skyTop: "#5d6fb0", fog: "#d8b8b8", sun: "#ff9a5a", sunI: 1.5, amb: "#8c86c0", ambI: 0.85, snow: "#e6dcec", stars: 0.2 },
+  day: { sky: "#bfe0f7", skyTop: "#3f92dc", fog: "#cfe6f6", sun: "#fff1d6", sunI: 2.3, amb: "#b4cff5", ambI: 1.35, snow: "#e9f0fb", stars: 0 },
+  dusk: { sky: "#f0b8a0", skyTop: "#5d6fb0", fog: "#e8c2b8", sun: "#ff9a5a", sunI: 2.0, amb: "#a8a2d6", ambI: 1.2, snow: "#f6e8ee", stars: 0.2 },
   night: { sky: "#1c2a55", skyTop: "#050a1e", fog: "#17224a", sun: "#8aa6ff", sunI: 0.55, amb: "#4a5fa8", ambI: 0.75, snow: "#a9bde8", stars: 1 },
   deep: { sky: "#0e1636", skyTop: "#02040f", fog: "#0c1230", sun: "#6a86e8", sunI: 0.35, amb: "#34448a", ambI: 0.6, snow: "#8296c8", stars: 1 },
-  dawn: { sky: "#f4c8c0", skyTop: "#6a86c0", fog: "#e4cfd6", sun: "#ffd9b0", sunI: 1.6, amb: "#a6b0dc", ambI: 0.95, snow: "#f7ecf2", stars: 0.1 },
+  dawn: { sky: "#f4c8c0", skyTop: "#6a86c0", fog: "#e4cfd6", sun: "#ffd9b0", sunI: 1.9, amb: "#b4bce8", ambI: 1.15, snow: "#f4e8f0", stars: 0.1 },
 };
 
 const mixMood = (a: Mood, b: Mood, k: number): Mood => {
@@ -111,7 +111,7 @@ export const buildWorld = (W: number, H: number): DWorld => {
   const mg: THREE.BufferGeometry[] = [];
   for (let i = 0; i < 26; i++) {
     const a = Math.PI * (0.62 + 1.1 * (i / 25)) + (R() - 0.5) * 0.1; // arc behind (-z) and left (-x)
-    const r = 280 + R() * 160, hgt = 70 + R() * 110, w = 90 + R() * 90;
+    const r = 230 + R() * 150, hgt = 110 + R() * 130, w = 70 + R() * 70;
     const g = new THREE.ConeGeometry(w, hgt, 5 + Math.floor(R() * 3), 1);
     g.translate(0, hgt / 2 - 8, 0); g.rotateY(R() * 6);
     g.translate(Math.cos(a) * r, 0, -Math.abs(Math.sin(a)) * r - 40);
