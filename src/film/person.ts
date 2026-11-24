@@ -110,6 +110,13 @@ export const drawPerson = (g: G, look: Look, p: PersonPose) => {
     limb(g, [[cx + 36, legTop], [cx + 54 + wk * 50, (legTop + FOOT) / 2], [cx + 48 + wk * 90, FOOT - Math.max(0, -wk) * 30]], 14, { color: lc });
   }
   foot(g, cx - 44 - wk * 90, FOOT + 3, 14, -1); foot(g, cx + 48 + wk * 90, FOOT + 3, 14, 1);
+  if (look.skirt && !p.sit) {
+    // long dress: bell skirt over the legs, hem swings with the stride
+    const sw = wk * 34, top0 = legTop - 70, hem = FOOT - 30;
+    const sk: V[] = [[cx - 120, top0], [cx - 190 + sw * 0.4, (top0 + hem) / 2 + 30], [cx - 236 + sw, hem], [cx - 120 + sw * 0.6, hem + 18], [cx + 10 + sw * 0.3, hem + 8], [cx + 130 + sw * 0.6, hem + 18], [cx + 236 + sw, hem], [cx + 190 + sw * 0.4, (top0 + hem) / 2 + 30], [cx + 120, top0]];
+    blobFill(g, smoothClosed(sk, 10), look.skirt, { outline: 12, shade: "rgba(40,20,30,0.25)", rim: "rgba(255,240,220,0.45)", seed: look.seed + 9 });
+    g.strokeStyle = "rgba(255,240,220,0.7)"; g.lineWidth = 6; g.beginPath(); g.moveTo(cx - 200 + sw, hem - 26); g.quadraticCurveTo(cx + sw * 0.5, hem + 6, cx + 200 + sw, hem - 26); g.stroke();
+  }
   // arms behind body when hanging, drawn after body when raised
   const aL = p.armL || { sh: 0.25, el: -0.15 }, aR = p.armR || { sh: 0.25, el: -0.15 };
   const drawArm = (a: Arm, side: number) => {

@@ -3,3 +3,6 @@ node_modules
 out
 *.log
 public/audio/mix.wav
+audio_src
+*.48k.wav
+__pycache__
